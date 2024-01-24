@@ -26,7 +26,8 @@ public:
 
 private:
 
-    juce::Slider trimKnob;
+    juce::Slider trimKnob; /*creates the Trim Knob slider*/
+
 
     SoHRUtilityAudioProcessor& audioProcessor;
 
