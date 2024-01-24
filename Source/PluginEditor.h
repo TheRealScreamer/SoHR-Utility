@@ -27,7 +27,8 @@ public:
 private:
 
     juce::Slider trimKnob; /*creates the Trim Knob slider*/
-
+    juce::TextButton phaseInvertBut{"Phase"}; /*creates the phase button that says phase*/
+    juce::Label trimKnobLabel; /*creates the variable for the text above knob*/
 
     SoHRUtilityAudioProcessor& audioProcessor;
 
