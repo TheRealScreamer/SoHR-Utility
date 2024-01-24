@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="VcWw4J" name="SoHR Utility" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="Sound of Hope Recordings">
   <MAINGROUP id="tzZUa4" name="SoHR Utility">
     <GROUP id="{C4D02F0C-0231-A3EF-5055-D4AB92FC6FD1}" name="Source">
       <FILE id="leQXgE" name="PluginProcessor.cpp" compile="1" resource="0"
