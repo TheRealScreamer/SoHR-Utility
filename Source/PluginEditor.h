@@ -37,6 +37,16 @@ private:
     juce::Slider hiPassFreqKnob; /*creates the variable for Highpass Frequency Knob*/
     juce::Label  hiPassFreqLabel; /*creats the variable for the text above knob*/
 
+    juce::Slider hiPassGainKnob; /*creates the slider for hi pass gain control*/
+    juce::Label hiPassGainLabel;/*creates text thatll be attacked to knob*/
+
+    juce::Slider hiShelfFreqKnob; /*creates the variable for Highpass Frequency Knob*/
+    juce::Label  hiShelfFreqLabel; /*creats the variable for the text above knob*/
+
+    juce::Slider hiShelfGainKnob; /*creates the slider for hi pass gain control*/
+    juce::Label hiShelfGainLabel;/*creates text thatll be attacked to knob*/
+
+
     SoHRUtilityAudioProcessor& audioProcessor;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoHRUtilityAudioProcessorEditor)

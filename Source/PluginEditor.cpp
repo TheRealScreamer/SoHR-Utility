@@ -13,6 +13,7 @@
 SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    //==============================Input Gain==================================
     addAndMakeVisible(inputGainKnob);
     inputGainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     inputGainKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 66, 28);
@@ -36,6 +37,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
     inputGainLabel.attachToComponent(&inputGainKnob, false); /*Attaches the text to the knob*/
     inputGainLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
  
+    //=============================Phase Button==================================
     addAndMakeVisible(phaseInvertBut); /*Makes the Phase Button Visible*/
     phaseInvertBut.setClickingTogglesState(true); /*makes the button clickable*/
     phaseInvertBut.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::white.withAlpha(0.5f)); /*colors the button when off*/
@@ -48,6 +50,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
             audioProcessor.phaseState = phaseInvertBut.getToggleState();
         };
 
+    //==============================High Pass===================================
     addAndMakeVisible(hiPassFreqKnob);
     hiPassFreqKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     hiPassFreqKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 66, 28);
@@ -67,6 +70,64 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
     hiPassFreqLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
 
 
+    addAndMakeVisible(hiPassGainKnob);
+    hiPassGainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    hiPassGainKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 66, 28);
+    hiPassGainKnob.setDoubleClickReturnValue(true, 0.0);
+    hiPassGainKnob.setRange(-48.0, 48.0, 0.25); // Adjust the range as needed
+    hiPassGainKnob.setValue(0.0); // Set the default value
+    hiPassGainKnob.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::purple.withAlpha(0.0f)); /*hides the thumb of the knob*/
+    hiPassGainKnob.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of slider*/
+    hiPassGainKnob.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::ghostwhite.withAlpha(0.25f)); /*color of slider background*/
+    hiPassGainKnob.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of values under knob*/
+    hiPassGainKnob.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::purple.withAlpha(0.0f)); /*color of the box around text above*/
+
+    addAndMakeVisible(hiPassGainLabel); /*Makes the Trim Knob Label Visible*/
+    hiPassGainLabel.setText("Hi-Pass Gain", juce::dontSendNotification); /*Generates the text above the knob*/
+    hiPassGainLabel.setJustificationType(juce::Justification::centred); /*Makes the text centered*/
+    hiPassGainLabel.attachToComponent(&hiPassGainKnob, false); /*Attaches the text to the knob*/
+    hiPassGainLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
+
+
+    //==============================High Shelf===================================
+    addAndMakeVisible(hiShelfFreqKnob);
+    hiShelfFreqKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    hiShelfFreqKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 66, 28);
+    hiShelfFreqKnob.setDoubleClickReturnValue(true, 0.0);
+    hiShelfFreqKnob.setRange(-48.0, 48.0, 0.25); // Adjust the range as needed
+    hiShelfFreqKnob.setValue(0.0); // Set the default value
+    hiShelfFreqKnob.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::purple.withAlpha(0.0f)); /*hides the thumb of the knob*/
+    hiShelfFreqKnob.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of slider*/
+    hiShelfFreqKnob.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::ghostwhite.withAlpha(0.25f)); /*color of slider background*/
+    hiShelfFreqKnob.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of values under knob*/
+    hiShelfFreqKnob.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::purple.withAlpha(0.0f)); /*color of the box around text above*/
+
+    addAndMakeVisible(hiShelfFreqLabel); /*Makes the Trim Knob Label Visible*/
+    hiShelfFreqLabel.setText("Hi-Shelf Freq", juce::dontSendNotification); /*Generates the text above the knob*/
+    hiShelfFreqLabel.setJustificationType(juce::Justification::centred); /*Makes the text centered*/
+    hiShelfFreqLabel.attachToComponent(&hiShelfFreqKnob, false); /*Attaches the text to the knob*/
+    hiShelfFreqLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
+
+
+    addAndMakeVisible(hiShelfGainKnob);
+    hiShelfGainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    hiShelfGainKnob.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 66, 28);
+    hiShelfGainKnob.setDoubleClickReturnValue(true, 0.0);
+    hiShelfGainKnob.setRange(-48.0, 48.0, 0.25); // Adjust the range as needed
+    hiShelfGainKnob.setValue(0.0); // Set the default value
+    hiShelfGainKnob.setColour(juce::Slider::ColourIds::thumbColourId, juce::Colours::purple.withAlpha(0.0f)); /*hides the thumb of the knob*/
+    hiShelfGainKnob.setColour(juce::Slider::ColourIds::rotarySliderFillColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of slider*/
+    hiShelfGainKnob.setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, juce::Colours::ghostwhite.withAlpha(0.25f)); /*color of slider background*/
+    hiShelfGainKnob.setColour(juce::Slider::ColourIds::textBoxTextColourId, juce::Colours::purple.withAlpha(1.0f)); /*color of values under knob*/
+    hiShelfGainKnob.setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::purple.withAlpha(0.0f)); /*color of the box around text above*/
+
+    addAndMakeVisible(hiShelfGainLabel); /*Makes the Trim Knob Label Visible*/
+    hiShelfGainLabel.setText("Hi-Shelf Gain", juce::dontSendNotification); /*Generates the text above the knob*/
+    hiShelfGainLabel.setJustificationType(juce::Justification::centred); /*Makes the text centered*/
+    hiShelfGainLabel.attachToComponent(&hiShelfGainKnob, false); /*Attaches the text to the knob*/
+    hiShelfGainLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
+
+    //==============================Trim===================================
     addAndMakeVisible(trimKnob); /*Makes the Trim Knob visible*/
     trimKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag); /*changes boring slider to knob*/
     trimKnob.setRange(-48.0, 48.0, 0.25); /*sets the min and max of the knob (Min, Max, Interval Value)*/
@@ -119,10 +180,19 @@ void SoHRUtilityAudioProcessorEditor::resized()
     //Position hi pass freq at bottom-left
     hiPassFreqKnob.setBounds(leftMargin, topMargin * 4.4, knobSize * 0.3, knobSize * 0.3);
 
-    //Position phaseInvertBut at bottom-center
-    phaseInvertBut.setBounds(getWidth() * 0.57 - knobSize * 0.25, getHeight() - knobSize * 0.13 - 16, 80, 40);
+    //Position hi pass gain at bottom-left
+    hiPassGainKnob.setBounds(leftMargin / .08, topMargin * 4.4, knobSize * 0.3, knobSize * 0.3);
 
-    //Position inputGainKnob at top-right
+    //Position hi shelf freq at bottom-left
+    hiShelfFreqKnob.setBounds(rightMargin * 0.63, topMargin * 4.4, knobSize * 0.3, knobSize * 0.3);
+
+    //Position hi shelf gain at bottom-left
+    hiShelfGainKnob.setBounds(rightMargin * 0.45, topMargin * 4.4, knobSize * 0.3, knobSize * 0.3);
+
+    //Position phaseInvertBut at bottom-center
+    phaseInvertBut.setBounds(getWidth() * 0.58 - knobSize * 0.25, getHeight() - knobSize * 0.13 - 16, 80, 40);
+
+    //Position Trim at top-right
     trimKnob.setBounds(rightMargin * 0.63, topMargin * 0.35, knobSize * 0.3, knobSize * 0.3);
 
     //trimKnob.setBounds(leftMargin, topMargin,knobSize,knobSize); /*sets the position of the slider.  (x-axis, y-axis, Width, Height)*/
