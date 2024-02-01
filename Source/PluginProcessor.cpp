@@ -22,6 +22,7 @@ SoHRUtilityAudioProcessor::SoHRUtilityAudioProcessor()
                        )
 #endif
 {
+    addParameters();
 }
 
 SoHRUtilityAudioProcessor::~SoHRUtilityAudioProcessor()
@@ -139,6 +140,13 @@ void SoHRUtilityAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    // Retrieve parameter values
+    float inputGain = apvts.getRawParameterValue("InputGain")->load();
+    float hiPassGain = apvts.getRawParameterValue("HiPassGain")->load();
+    float hiShelfGain = apvts.getRawParameterValue("HiShelfGain")->load();
+    float trimGain = apvts.getRawParameterValue("Trim")->load();
+    bool phaseInvert = phaseState;
+
      
     for (int channel = 0; channel < totalNumInputChannels; ++channel)
     {
@@ -146,7 +154,14 @@ void SoHRUtilityAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 
         for (int sample = 0; sample < buffer.getNumSamples(); sample++)
         {
-            channelData[sample] *= juce::Decibels::decibelsToGain(volume) * ((!phaseState * 2.0) - 1.0);
+            // Apply processing based on parameters
+            channelData[sample] *= juce::Decibels::decibelsToGain(inputGain) * ((!phaseInvert * 2.0) - 1.0);
+
+            // Apply other processing as needed (e.g., hi-pass, hi-shelf, trim)
+            // Adjust the following lines based on your actual processing requirements
+            channelData[sample] *= juce::Decibels::decibelsToGain(hiPassGain);
+            channelData[sample] *= juce::Decibels::decibelsToGain(hiShelfGain);
+            channelData[sample] *= juce::Decibels::decibelsToGain(trimGain);
         }
     }
 }
@@ -174,6 +189,16 @@ void SoHRUtilityAudioProcessor::setStateInformation (const void* data, int sizeI
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+}
+
+//==============================================================================
+void SoHRUtilityAudioProcessor::addParameters()
+{
+    // Add parameters with IDs "InputGain", "HiPassGain", "HiShelfGain", and "Trim"
+    apvts.createAndAddParameter("InputGain", "Input Gain", "Input Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
+    apvts.createAndAddParameter("HiPassGain", "High-Pass Gain", "High-Pass Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
+    apvts.createAndAddParameter("HiShelfGain", "High-Shelf Gain", "High-Shelf Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
+    apvts.createAndAddParameter("Trim", "Trim", "Trim", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
 }
 
 //==============================================================================

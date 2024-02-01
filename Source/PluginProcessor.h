@@ -55,8 +55,18 @@ public:
 
     float volume = 0;
     float phaseState = false;
+    
+    juce::AudioProcessorValueTreeState apvts{ *this, nullptr, "Parameters", { } };
 
 private:
+    // Add parameters for Input Gain, High-Pass Gain, High-Shelf Gain, and Trim
+    juce::AudioParameterFloat* inputGainParam;
+    juce::AudioParameterFloat* hiPassGainParam;
+    juce::AudioParameterFloat* hiShelfGainParam;
+    juce::AudioParameterFloat* trimParam;
+
+    void addParameters();
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoHRUtilityAudioProcessor)
 };
