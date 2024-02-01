@@ -155,13 +155,9 @@ void SoHRUtilityAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         for (int sample = 0; sample < buffer.getNumSamples(); sample++)
         {
             // Apply processing based on parameters
-            channelData[sample] *= juce::Decibels::decibelsToGain(inputGain) * ((!phaseInvert * 2.0) - 1.0);
-
-            // Apply other processing as needed (e.g., hi-pass, hi-shelf, trim)
-            // Adjust the following lines based on your actual processing requirements
-            channelData[sample] *= juce::Decibels::decibelsToGain(hiPassGain);
-            channelData[sample] *= juce::Decibels::decibelsToGain(hiShelfGain);
-            channelData[sample] *= juce::Decibels::decibelsToGain(trimGain);
+            float inputSample = channelData[sample];
+            inputSample *= juce::Decibels::decibelsToGain(inputGain) * ((!phaseInvert * 2.0) - 1.0);
+            channelData[sample] = inputSample;
         }
     }
 }
