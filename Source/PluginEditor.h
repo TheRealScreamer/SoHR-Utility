@@ -26,11 +26,16 @@ public:
 
 private:
 
-    juce::Slider trimKnob; /*creates the Trim Knob slider*/
-    juce::TextButton phaseInvertBut{"Phase"}; /*creates the phase button that says phase*/
-    juce::Label trimKnobLabel; /*creates the variable for the text above knob*/
     juce::Slider inputGainKnob; /*creates the variable for input gain*/
-    juce::Label inputGainLabel;
+    juce::Label inputGainLabel; /*creats the variable for the text above knob*/
+
+    juce::Slider trimKnob; /*creates the Trim Knob slider*/
+    juce::Label trimKnobLabel; /*creates the variable for the text above knob*/
+
+    juce::TextButton phaseInvertBut{"Phase"}; /*creates the phase button that says phase*/
+    
+    juce::Slider hiPassFreqKnob; /*creates the variable for Highpass Frequency Knob*/
+    juce::Label  hiPassFreqLabel; /*creats the variable for the text above knob*/
 
     SoHRUtilityAudioProcessor& audioProcessor;
 
