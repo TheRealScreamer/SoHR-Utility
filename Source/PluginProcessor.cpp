@@ -192,8 +192,8 @@ void SoHRUtilityAudioProcessor::addParameters()
 {
     // Add parameters with IDs "InputGain", "HiPassGain", "HiShelfGain", and "Trim"
     apvts.createAndAddParameter("InputGain", "Input Gain", "Input Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
-    apvts.createAndAddParameter("HiPassGain", "High-Pass Gain", "High-Pass Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
-    apvts.createAndAddParameter("HiShelfGain", "High-Shelf Gain", "High-Shelf Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
+    //apvts.createAndAddParameter("HiPassGain", "High-Pass Gain", "High-Pass Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
+    //apvts.createAndAddParameter("HiShelfGain", "High-Shelf Gain", "High-Shelf Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
     apvts.createAndAddParameter("Trim", "Trim", "Trim", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f, nullptr, nullptr);
 }
 
