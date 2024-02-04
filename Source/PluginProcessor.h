@@ -13,7 +13,7 @@
 //==============================================================================
 /**
 */
-class SoHRUtilityAudioProcessor  : public juce::AudioProcessor
+class SoHRUtilityAudioProcessor : public juce::AudioProcessor
 {
 public:
     //==============================================================================
@@ -21,14 +21,14 @@ public:
     ~SoHRUtilityAudioProcessor() override;
 
     //==============================================================================
-    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay(double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
-   #ifndef JucePlugin_PreferredChannelConfigurations
-    bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
-   #endif
+#ifndef JucePlugin_PreferredChannelConfigurations
+    bool isBusesLayoutSupported(const BusesLayout& layouts) const override;
+#endif
 
-    void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
+    void processBlock(juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
 
     //==============================================================================
     juce::AudioProcessorEditor* createEditor() override;
@@ -45,28 +45,34 @@ public:
     //==============================================================================
     int getNumPrograms() override;
     int getCurrentProgram() override;
-    void setCurrentProgram (int index) override;
-    const juce::String getProgramName (int index) override;
-    void changeProgramName (int index, const juce::String& newName) override;
+    void setCurrentProgram(int index) override;
+    const juce::String getProgramName(int index) override;
+    void changeProgramName(int index, const juce::String& newName) override;
 
     //==============================================================================
-    void getStateInformation (juce::MemoryBlock& destData) override;
-    void setStateInformation (const void* data, int sizeInBytes) override;
+    void getStateInformation(juce::MemoryBlock& destData) override;
+    void setStateInformation(const void* data, int sizeInBytes) override;
 
-    float volume = 0;
-    float phaseState = false;
-    
-    juce::AudioProcessorValueTreeState apvts{ *this, nullptr, "Parameters", { } };
+    //Getter and setter for inputgain
+    float getInputGain() const { return inputGain; }
+    void setInputGain(float newValue) { inputGain = newValue; }
+
+    //Getter and setter for phaseState
+    bool getPhaseState() const { return phaseState; }
+    void  setPhaseState(bool newState) { phaseState = newState; }
+
+    //Getter and setter for trimgain
+    float getTrimGain() const { return trimGain; }
+    void setTrimGain(float newValue) { trimGain = newValue; }
 
 private:
-    // Add parameters for Input Gain, High-Pass Gain, High-Shelf Gain, and Trim
-    juce::AudioParameterFloat* inputGainParam;
-    juce::AudioParameterFloat* hiPassGainParam;
-    juce::AudioParameterFloat* hiShelfGainParam;
-    juce::AudioParameterFloat* trimParam;
 
-    void addParameters();
+    float inputGain;
+
+    float phaseState;
+
+    float trimGain;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SoHRUtilityAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SoHRUtilityAudioProcessor)
 };

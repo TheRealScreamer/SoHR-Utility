@@ -10,8 +10,8 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor(SoHRUtilityAudioProcessor& p)
+    : AudioProcessorEditor(&p), audioProcessor(p)
 {
     //==============================Input Gain==================================
     addAndMakeVisible(inputGainKnob);
@@ -28,7 +28,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
 
     inputGainKnob.onValueChange = [this]()
         {
-            audioProcessor.volume = inputGainKnob.getValue();
+            audioProcessor.setInputGain(inputGainKnob.getValue());
         };
 
     addAndMakeVisible(inputGainLabel); /*Makes the Trim Knob Label Visible*/
@@ -36,7 +36,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
     inputGainLabel.setJustificationType(juce::Justification::centred); /*Makes the text centered*/
     inputGainLabel.attachToComponent(&inputGainKnob, false); /*Attaches the text to the knob*/
     inputGainLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::purple.withAlpha(1.0f)); /*sets text color*/
- 
+
     //=============================Phase Button==================================
     addAndMakeVisible(phaseInvertBut); /*Makes the Phase Button Visible*/
     phaseInvertBut.setClickingTogglesState(true); /*makes the button clickable*/
@@ -47,7 +47,8 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
 
     phaseInvertBut.onClick = [this]()
         {
-            audioProcessor.phaseState = phaseInvertBut.getToggleState();
+            bool newState = phaseInvertBut.getToggleState();
+            audioProcessor.setPhaseState(newState);
         };
 
     //==============================High Pass===================================
@@ -141,7 +142,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
 
     trimKnob.onValueChange = [this]()
         {
-            audioProcessor.volume = trimKnob.getValue();
+            audioProcessor.setTrimGain(trimKnob.getValue());
         };
 
     addAndMakeVisible(trimKnobLabel); /*Makes the Trim Knob Label Visible*/
@@ -153,7 +154,7 @@ SoHRUtilityAudioProcessorEditor::SoHRUtilityAudioProcessorEditor (SoHRUtilityAud
 
 
 
-    setSize (800, 400);/*pixel size of plugin*/
+    setSize(800, 400);/*pixel size of plugin*/
 }
 
 SoHRUtilityAudioProcessorEditor::~SoHRUtilityAudioProcessorEditor()
@@ -161,10 +162,10 @@ SoHRUtilityAudioProcessorEditor::~SoHRUtilityAudioProcessorEditor()
 }
 
 //==============================================================================
-void SoHRUtilityAudioProcessorEditor::paint (juce::Graphics& g)
+void SoHRUtilityAudioProcessorEditor::paint(juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (juce::Colours::black);
+    g.fillAll(juce::Colours::black);
 }
 
 void SoHRUtilityAudioProcessorEditor::resized()
