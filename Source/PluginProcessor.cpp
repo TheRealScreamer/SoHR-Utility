@@ -22,10 +22,15 @@ SoHRUtilityAudioProcessor::SoHRUtilityAudioProcessor()
     ),
     inputGain(0.0f),
     trimGain(0.0f),
-    phaseState(false)
+    phaseState(false),
+    inputGainParameter(nullptr) //Initialize the parameter
 #endif
-{
+{ 
+    // Add this section to initialize the inputGainParameter
+    inputGainParameter = new juce::AudioParameterFloat("InputGain", "Input Gain", juce::NormalisableRange<float>(-48.0f, 48.0f), 0.0f);
+    addParameter(inputGainParameter);
 }
+
 
 SoHRUtilityAudioProcessor::~SoHRUtilityAudioProcessor()
 {
@@ -138,7 +143,7 @@ void SoHRUtilityAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, j
     auto totalNumInputChannels = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
-    float currentInputGain = juce::Decibels::decibelsToGain(getInputGain());
+    float currentInputGain = juce::Decibels::decibelsToGain(inputGainParameter->get());
 
     float currentTrimGain = juce::Decibels::decibelsToGain(getTrimGain());
 

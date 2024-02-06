@@ -69,6 +69,8 @@ private:
 
     float inputGain;
 
+    juce::AudioParameterFloat* inputGainParameter;
+
     float phaseState;
 
     float trimGain;
